@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Smart Dashboard - Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader-overlay" id="loader">
+  <div class="loader-logo"><span class="material-symbols-outlined" style="font-size:32px">bolt</span> SmartTab</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-text">Loading Tasks...</div>
+</div>
+
+
+
+<div class="bg-canvas" id="bgCanvas"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR PILLS -->
+<nav class="nav-container">
+  <div class="nav-pill nav-brand-pill">
+    <div class="nav-brand"><span class="material-symbols-outlined">bolt</span> SmartTab</div>
+  </div>
+  
+  <div class="nav-pill nav-links-pill">
+    <div class="nav-links">
+      <a class="nav-link" href="index.html"><span class="material-symbols-outlined">home</span> Home</a>
+      <a class="nav-link" href="markets.html"><span class="material-symbols-outlined">trending_up</span> Markets</a>
+      <a class="nav-link" href="headlines.html"><span class="material-symbols-outlined">newspaper</span> Headlines</a>
+      <a class="nav-link active" href="tasks.html"><span class="material-symbols-outlined">task_alt</span> Tasks</a>
+      <a class="nav-link" href="focus.html"><span class="material-symbols-outlined">track_changes</span> Focus</a>
+    </div>
+  </div>
+
+  <div class="nav-pill nav-time-pill">
+    <span class="material-symbols-outlined" style="font-size:14px;color:var(--accent3);animation: pulse 2s infinite;">radio_button_checked</span>
+    <span id="liveTime">--:--:-- --</span>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ══════════════ SECTION 4: TASKS ══════════════ -->
+<section id="tasks" class="section">
+  <h2 class="section-title"><span class="material-symbols-outlined">task_alt</span> Focus & Execution</h2>
+  <div class="glass todo-card">
+    <div class="section-label"><span class="material-symbols-outlined">list_alt</span> Today's Objectives</div>
+    <div class="todo-input-row">
+      <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task...">
+      <button class="btn-add" onclick="addTodo()">ADD TASK</button>
+    </div>
+    <div class="todo-list" id="todoList"></div>
+    <div class="todo-footer">
+      <div id="todoCount">0 tasks</div>
+      <button class="btn-clear" onclick="clearCompleted()">Clear Done</button>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Smart Dashboard - Markets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader-overlay" id="loader">
+  <div class="loader-logo"><span class="material-symbols-outlined" style="font-size:32px">bolt</span> SmartTab</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-text">Loading Markets...</div>
+</div>
+
+
+
+<div class="bg-canvas" id="bgCanvas"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR PILLS -->
+<nav class="nav-container">
+  <div class="nav-pill nav-brand-pill">
+    <div class="nav-brand"><span class="material-symbols-outlined">bolt</span> SmartTab</div>
+  </div>
+  
+  <div class="nav-pill nav-links-pill">
+    <div class="nav-links">
+      <a class="nav-link" href="index.html"><span class="material-symbols-outlined">home</span> Home</a>
+      <a class="nav-link active" href="markets.html"><span class="material-symbols-outlined">trending_up</span> Markets</a>
+      <a class="nav-link" href="headlines.html"><span class="material-symbols-outlined">newspaper</span> Headlines</a>
+      <a class="nav-link" href="tasks.html"><span class="material-symbols-outlined">task_alt</span> Tasks</a>
+      <a class="nav-link" href="focus.html"><span class="material-symbols-outlined">track_changes</span> Focus</a>
+    </div>
+  </div>
+
+  <div class="nav-pill nav-time-pill">
+    <span class="material-symbols-outlined" style="font-size:14px;color:var(--accent3);animation: pulse 2s infinite;">radio_button_checked</span>
+    <span id="liveTime">--:--:-- --</span>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ══════════════ SECTION 2: MARKETS ══════════════ -->
+<section id="markets" class="section">
+  <h2 class="section-title"><span class="material-symbols-outlined">trending_up</span> Global Market Intelligence</h2>
+  
+  <div class="market-container">
+    <!-- CRYPTO SEGMENT -->
+    <div class="glass ticker-card">
+      <div class="ticker-header">
+        <div class="ticker-title"><span class="material-symbols-outlined" style="font-size:16px; color:var(--accent4)">currency_bitcoin</span> Cryptocurrencies</div>
+        <div class="ticker-update">Live • CoinGecko</div>
+      </div>
+      <div class="ticker-grid" id="cryptoGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-mute)">Connecting to blockchain...</div>
+      </div>
+    </div>
+
+    <!-- FOREX SEGMENT -->
+    <div class="glass ticker-card">
+      <div class="ticker-header">
+        <div class="ticker-title"><span class="material-symbols-outlined" style="font-size:16px; color:var(--accent3)">payments</span> Foreign Exchange</div>
+        <div class="ticker-update">Live • OpenER</div>
+      </div>
+      <div class="ticker-grid" id="forexGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-mute)">Fetching currency rates...</div>
+      </div>
+    </div>
+
+    <!-- STOCKS SEGMENT -->
+    <div class="glass ticker-card">
+      <div class="ticker-header">
+        <div class="ticker-title"><span class="material-symbols-outlined" style="font-size:16px; color:var(--accent)">monitoring</span> Top Tech Stocks</div>
+        <div class="ticker-update">Live • Simulated</div>
+      </div>
+      <div class="ticker-grid" id="stocksGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-mute)">Polling market data...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Marquee for all together -->
+  <div class="glass" style="margin-top: 30px; padding: 0;">
+    <div class="marquee-bar">
+      <div class="marquee-inner" id="marqueeInner"></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

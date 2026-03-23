@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Smart Dashboard - Focus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader-overlay" id="loader">
+  <div class="loader-logo"><span class="material-symbols-outlined" style="font-size:32px">bolt</span> SmartTab</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-text">Loading Focus...</div>
+</div>
+
+
+
+<div class="bg-canvas" id="bgCanvas"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NAVBAR PILLS -->
+<nav class="nav-container">
+  <div class="nav-pill nav-brand-pill">
+    <div class="nav-brand"><span class="material-symbols-outlined">bolt</span> SmartTab</div>
+  </div>
+  
+  <div class="nav-pill nav-links-pill">
+    <div class="nav-links">
+      <a class="nav-link" href="index.html"><span class="material-symbols-outlined">home</span> Home</a>
+      <a class="nav-link" href="markets.html"><span class="material-symbols-outlined">trending_up</span> Markets</a>
+      <a class="nav-link" href="headlines.html"><span class="material-symbols-outlined">newspaper</span> Headlines</a>
+      <a class="nav-link" href="tasks.html"><span class="material-symbols-outlined">task_alt</span> Tasks</a>
+      <a class="nav-link active" href="focus.html"><span class="material-symbols-outlined">track_changes</span> Focus</a>
+    </div>
+  </div>
+
+  <div class="nav-pill nav-time-pill">
+    <span class="material-symbols-outlined" style="font-size:14px;color:var(--accent3);animation: pulse 2s infinite;">radio_button_checked</span>
+    <span id="liveTime">--:--:-- --</span>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ══════════════ SECTION 5: PRODUCTIVITY & GAMES ══════════════ -->
+<section id="productivity" class="section">
+  <h2 class="section-title"><span class="material-symbols-outlined">track_changes</span> Clarity & Momentum</h2>
+  <div class="row-bottom">
+    <!-- Game Zone -->
+    <div class="glass game-card">
+      <div class="section-label"><span class="material-symbols-outlined">sports_esports</span> Retro Dash</div>
+      <div class="game-launch-area" id="gameLauncher">
+        <div class="game-preview-btn" onclick="startGame()">
+          <div class="game-icon">🎮</div>
+          <div>Launch Mini-Game</div>
+          <div class="game-hint">Match colors to score points</div>
+        </div>
+      </div>
+      <div id="gridGame">
+        <div class="game-score-bar">
+          <div>Score: <span id="gameScore" class="game-score-val">0</span></div>
+          <div>Moves: <span id="gameMoves">0</span></div>
+          <div>Best: <span id="gameBest">0</span></div>
+        </div>
+        <div id="gameGrid"></div>
+        <div class="game-controls">
+          <button class="btn-game primary" onclick="startGame()">Restart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini Stats & Pomodoro -->
+    <div style="display:flex; flex-direction:column; gap:var(--element-gap);">
+      <div class="glass stats-card">
+        <div class="section-label"><span class="material-symbols-outlined">analytics</span> Day Progress</div>
+        <div class="stat-row">
+          <div class="stat-label">Daily Goal <span id="dayPct">0%</span></div>
+          <div class="stat-bar"><div class="stat-fill blue" id="dayBar"></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Weekly Momentum <span id="weekPct">0%</span></div>
+          <div class="stat-bar"><div class="stat-fill purple" id="weekBar2"></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Monthly Target <span id="monthPct">0%</span></div>
+          <div class="stat-bar"><div class="stat-fill green" id="monthBar"></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Yearly Vision <span id="yearPct">0%</span></div>
+          <div class="stat-bar"><div class="stat-fill orange" id="yearBar"></div></div>
+        </div>
+      </div>
+
+      <div class="glass stats-card" style="align-items:center; text-align:center; padding:24px;">
+        <div class="section-label" style="width:100%;"><span class="material-symbols-outlined">timer</span> Pomodoro</div>
+        <div id="pomPhase" style="font-size:.7rem; color:var(--accent); font-family:var(--mono); margin-bottom:5px;">Focus Mode</div>
+        <div id="pomDisplay" style="font-size:2.8rem; font-family:var(--mono); font-weight:700; margin-bottom:15px; letter-spacing:-2px;">25:00</div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-game primary" id="pomBtn" onclick="togglePom()"><span class="material-symbols-outlined" style="font-size:14px">play_arrow</span> Start</button>
+          <button class="btn-game" onclick="resetPom()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
