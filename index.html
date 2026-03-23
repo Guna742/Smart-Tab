@@ -47,6 +47,12 @@
     cursor: default;
     scroll-behavior: smooth;
   }
+  .page {
+    position: relative; z-index: 2;
+    isolation: isolate;
+    padding-top: 80px;
+    overflow-x: hidden;
+  }
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     vertical-align: middle;
@@ -887,23 +893,65 @@
   .tasks-inner { max-width: 860px; margin: 0 auto; }
 
   /* ── MEDIA ── */
+  /* ── RESPONSIVENESS (BREAKPOINTS) ── */
+  @media (max-width: 1200px) {
+    .markets-inner { padding: 0 20px; }
+    .hero-grid { gap: 24px; }
+  }
+
   @media (max-width: 1100px) {
-    .hero-grid { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
     .insights-grid { grid-template-columns: 1fr; }
     .row-bottom { grid-template-columns: 1fr; }
+    .hero-headline { text-align: center; margin-bottom: 40px; }
   }
+
   @media (max-width: 768px) {
-    .section { padding: 48px 20px; }
-    .nav-container { top: 10px; padding: 0 15px; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .nav-pill { height: 44px; scale: 0.9; }
-    .nav-brand-pill { order: 1; }
-    .nav-time-pill { order: 2; }
-    .nav-links-pill { order: 3; width: 100%; justify-content: center; }
-    .nav-link { padding: 6px 12px; font-size: .75rem; }
-    .hero-h1 { font-size: 2.4rem; }
-    .hero-big-time { font-size: 3rem; }
-    .row-bottom { grid-template-columns: 1fr; }
-    .row-main { grid-template-columns: 1fr; }
+    :root { --section-gap: 40px; }
+    .section { padding: 40px 20px; }
+    .page { padding-top: 132px; }
+    
+    /* Nav Pills Mobile */
+    .nav-container { top: 12px; padding: 0 16px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .nav-pill { height: 42px; scale: 0.95; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .nav-brand-pill { order: 1; padding: 0 16px; }
+    .nav-time-pill { order: 2; padding: 0 14px; font-size: 0.75rem; }
+    .nav-links-pill { order: 3; width: 100%; justify-content: center; padding: 0 6px; }
+    .nav-link { padding: 6px 12px; font-size: 0.78rem; gap: 4px; }
+    .nav-link .material-symbols-outlined { font-size: 16px; }
+
+    /* Hero Mobile */
+    .hero-h1 { font-size: 2.8rem; letter-spacing: -0.02em; }
+    .hero-big-time { font-size: 3.2rem; }
+    .hero-sub { font-size: 0.85rem; }
+    
+    /* Date Card Mobile */
+    .date-card { flex-direction: column; text-align: center; gap: 20px; padding: 24px 20px; }
+    .date-quote { border-left: none; border-top: 1px solid var(--border); padding: 16px 0 0; text-align: center; max-width: 100%; }
+
+    /* Weather Mobile */
+    .weather-forecast { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    
+    /* Insights Mobile */
+    .insight-card { padding: 24px; min-height: 480px; }
+    .insight-body { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 480px) {
+    .section { padding: 32px 16px; }
+    .hero-h1 { font-size: 2rem; }
+    .hero-big-time { font-size: 2.4rem; }
+    .nav-brand { font-size: 1rem; }
+    .nav-link { padding: 5px 8px; font-size: 0.7rem; }
+    .nav-link span { display: none; } /* Hide icons on tiny screens */
+    
+    .date-day { font-size: 2.5rem; }
+    .weather-temp { font-size: 2.8rem; }
+    .weather-icon-large .material-symbols-outlined { font-size: 48px; }
+    
+    .stats-card, .game-card { padding: 20px 16px; }
+    .todo-input-wrap { flex-direction: column; }
+    .todo-input-wrap input { width: 100%; }
   }
 </style>
 </head>
