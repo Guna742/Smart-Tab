@@ -9,17 +9,17 @@ const CONFIG = {
 // ══════════════════════════════════════
 // DATA CONSTANTS
 // ══════════════════════════════════════
-const productivityTips = [
-  { type:'tip', icon:'catching_pokemon', label:'Productivity Tip', text:'Eat the Frog: Do your hardest task first thing in the morning.', author:'Brian Tracy', img:'https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'bolt', label:'Productivity Tip', text:'The 2-Minute Rule: If a task takes less than 2 minutes, do it immediately.', author:'David Allen', img:'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'timer', label:'Productivity Tip', text:'Pomodoro Technique: Work for 25 minutes, then take a 5-minute break to stay sharp.', author:'Francesco Cirillo', img:'https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'inventory_2', label:'Productivity Tip', text:'Batching: Group similar tasks like answering emails together to save mental energy.', author:'Tim Ferriss', img:'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'ads_click', label:'Productivity Tip', text:'Single-Tasking: Multitasking reduces productivity by 40%. Focus on one thing at a time.', author:'APA Research', img:'https://images.unsplash.com/photo-1454165833767-02a698d1316a?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'lock', label:'Productivity Tip', text:'Deep Work: Schedule 90 minutes of distraction-free time for your most important project.', author:'Cal Newport', img:'https://images.unsplash.com/photo-1517842645537-4d258fb0bfbb?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'bar_chart', label:'Productivity Tip', text:'The 80/20 Rule: 80% of your results come from 20% of your activities. Find that 20%.', author:'Vilfredo Pareto', img:'https://images.unsplash.com/photo-1522071823990-94981d439763?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'self_improvement', label:'Productivity Tip', text:'Mindfulness: Take 5 minutes to breathe and clear your mind between big tasks.', author:'Thich Nhat Hanh', img:'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80' },
-  { type:'tip', icon:'notifications_off', label:'Productivity Tip', text:'Digital Minimalism: Turn off non-essential notifications to stay in the flow.', author:'Cal Newport', img:'https://images.unsplash.com/photo-1512428559083-a400a42d447a?auto=format&fit=crop&w=1200' },
-  { type:'tip', icon:'event_note', label:'Productivity Tip', text:'Review: Spend 10 minutes at the end of each day planning the next one.', author:'Jim Rohn', img:'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200' },
+const focusTips = [
+  { type:'tip', icon:'catching_pokemon', label:'Focus Tip', text:'Eat the Frog: Do your hardest task first thing in the morning.', author:'Brian Tracy', img:'https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'bolt', label:'Focus Tip', text:'The 2-Minute Rule: If a task takes less than 2 minutes, do it immediately.', author:'David Allen', img:'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'timer', label:'Focus Tip', text:'Pomodoro Technique: Work for 25 minutes, then take a 5-minute break to stay sharp.', author:'Francesco Cirillo', img:'https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'inventory_2', label:'Focus Tip', text:'Batching: Group similar tasks like answering emails together to save mental energy.', author:'Tim Ferriss', img:'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'ads_click', label:'Focus Tip', text:'Single-Tasking: Multitasking reduces productivity by 40%. Focus on one thing at a time.', author:'APA Research', img:'https://images.unsplash.com/photo-1454165833767-02a698d1316a?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'lock', label:'Focus Tip', text:'Deep Work: Schedule 90 minutes of distraction-free time for your most important project.', author:'Cal Newport', img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'bar_chart', label:'Focus Tip', text:'The 80/20 Rule: 80% of your results come from 20% of your activities. Find that 20%.', author:'Vilfredo Pareto', img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'self_improvement', label:'Focus Tip', text:'Mindfulness: Take 5 minutes to breathe and clear your mind between big tasks.', author:'Thich Nhat Hanh', img:'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'notifications_off', label:'Focus Tip', text:'Digital Minimalism: Turn off non-essential notifications to stay in the flow.', author:'Cal Newport', img:'https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?auto=format&fit=crop&w=1200&q=80' },
+  { type:'tip', icon:'event_note', label:'Focus Tip', text:'Review: Spend 10 minutes at the end of each day planning the next one.', author:'Jim Rohn', img:'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80' },
 ];
 
 (function spawnStars() {
@@ -96,9 +96,9 @@ function initDate() {
   const subEl = document.getElementById('heroDateSub');
   if (subEl) subEl.textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
   
-  if (typeof productivityTips !== 'undefined' && productivityTips.length > 0) {
-    const quoteIndex = now.getDate() % productivityTips.length;
-    const q = productivityTips[quoteIndex];
+  if (typeof focusTips !== 'undefined' && focusTips.length > 0) {
+    const quoteIndex = now.getDate() % focusTips.length;
+    const q = focusTips[quoteIndex];
     const qText = document.getElementById('dateQuoteText');
     const qAuth = document.getElementById('dateQuoteAuthor');
     if (qText && qAuth) {
@@ -495,7 +495,7 @@ async function loadInsights() {
   } catch(e) {
     quoteItems = [{ type:'quote', icon:'format_quote', label:'Quote of the Day', text:'"The secret of getting ahead is getting started."', author:'— Mark Twain', img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200' }];
   }
-  insightData = [...quoteItems, ...productivityTips];
+  insightData = [...quoteItems, ...focusTips];
   renderInsight();
   buildDots();
   startInsightAuto();
