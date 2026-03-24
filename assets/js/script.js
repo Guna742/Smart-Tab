@@ -2,8 +2,8 @@
 // CONFIG — Replace with your API keys
 // ══════════════════════════════════════
 const CONFIG = {
-  WEATHER_KEY: 'PASTE_YOUR_OPENWEATHERMAP_KEY',
-  NEWS_KEY: 'PASTE_YOUR_NEWSAPI_KEY',
+  WEATHER_KEY: 'AIzaSyAysNFmSja90SRjIa576b4X9EswQzNEgms',
+  NEWS_KEY: 'pub_6b2466d9b3a948188bb6126e753a30d2',
 };
 
 // ══════════════════════════════════════
@@ -151,14 +151,16 @@ initDate();
 // ══════════════════════════════════════
 // WEATHER
 // ══════════════════════════════════════
-const weatherIcons = {
-  '01d':'sunny','01n':'nightlight','02d':'partly_cloudy_day','02n':'partly_cloudy_night','03d':'cloud','03n':'cloud',
-  '04d':'cloudy','04n':'cloudy','09d':'rainy','09n':'rainy','10d':'partly_cloudy_day','10n':'rainy',
-  '11d':'thunderstorm','11n':'thunderstorm','13d':'ac_unit','13n':'ac_unit','50d':'foggy','50n':'foggy'
-};
-function getWeatherIcon(code) { 
-  const icon = weatherIcons[code] || 'partly_cloudy_day';
-  return `<span class="material-symbols-outlined">${icon}</span>`;
+function getWeatherIcon(text) { 
+  const t = (text || '').toLowerCase();
+  if (t.includes('clear') || t.includes('sunny')) return '<span class="material-symbols-outlined">sunny</span>';
+  if (t.includes('partly') || t.includes('mostly clear')) return '<span class="material-symbols-outlined">partly_cloudy_day</span>';
+  if (t.includes('cloud')) return '<span class="material-symbols-outlined">cloudy</span>';
+  if (t.includes('rain') || t.includes('drizzle') || t.includes('shower')) return '<span class="material-symbols-outlined">rainy</span>';
+  if (t.includes('thunder') || t.includes('storm')) return '<span class="material-symbols-outlined">thunderstorm</span>';
+  if (t.includes('snow') || t.includes('ice') || t.includes('sleet')) return '<span class="material-symbols-outlined">ac_unit</span>';
+  if (t.includes('fog') || t.includes('mist') || t.includes('haze')) return '<span class="material-symbols-outlined">foggy</span>';
+  return '<span class="material-symbols-outlined">partly_cloudy_day</span>';
 }
 
 const CACHE_TTL = { weather: 30*60*1000, ticker: 30*60*1000, news: 60*60*1000 };
@@ -183,11 +185,11 @@ async function loadWeather() {
   if (!navigator.geolocation) { if (!cached) setWeatherDemo(); return; }
   navigator.geolocation.getCurrentPosition(async pos => {
     const {latitude: lat, longitude: lon} = pos.coords;
-    if (CONFIG.WEATHER_KEY === 'PASTE_YOUR_OPENWEATHERMAP_KEY') { if (!cached) setWeatherDemo(); return; }
+    if (!CONFIG.WEATHER_KEY || CONFIG.WEATHER_KEY.startsWith('PASTE')) { if (!cached) setWeatherDemo(); return; }
     try {
       const [curr, fore] = await Promise.all([
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${CONFIG.WEATHER_KEY}`).then(r=>r.json()),
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&cnt=4&appid=${CONFIG.WEATHER_KEY}`).then(r=>r.json())
+        fetch(`https://weather.googleapis.com/v1/currentConditions:lookup?key=${CONFIG.WEATHER_KEY}&location.latitude=${lat}&location.longitude=${lon}`).then(r=>r.json()),
+        fetch(`https://weather.googleapis.com/v1/forecast:lookup?key=${CONFIG.WEATHER_KEY}&location.latitude=${lat}&location.longitude=${lon}`).then(r=>r.json())
       ]);
       cacheSet('smarttab_weather', { curr, fore });
       applyWeather(curr, fore);
@@ -196,31 +198,33 @@ async function loadWeather() {
 }
 
 function applyWeather(curr, fore) {
+  const c = curr || {};
   const tempEl = document.getElementById('wTemp');
-  if (tempEl) tempEl.textContent = Math.round(curr.main.temp) + '°C';
+  if (tempEl) tempEl.textContent = Math.round(c.temperature?.value ?? 0) + '°C';
   const descEl = document.getElementById('wDesc');
-  if (descEl) descEl.textContent = curr.weather[0].description;
+  if (descEl) descEl.textContent = c.condition?.text || 'Unknown';
   const locEl = document.getElementById('wLoc');
-  if (locEl) locEl.innerHTML = `<span class="material-symbols-outlined">location_on</span> ${curr.name}, ${curr.sys.country}`;
+  // Google Weather API doesn't always return name in lookup, fallback to coords or dummy
+  if (locEl) locEl.innerHTML = `<span class="material-symbols-outlined">location_on</span> Current Location`;
   const iconEl = document.getElementById('wIcon');
-  if (iconEl) iconEl.innerHTML = getWeatherIcon(curr.weather[0].icon);
+  if (iconEl) iconEl.innerHTML = getWeatherIcon(c.condition?.text);
   const humEl = document.getElementById('wHum');
-  if (humEl) humEl.textContent = curr.main.humidity + '%';
+  if (humEl) humEl.textContent = (c.relativeHumidity ?? '--') + '%';
   const windEl = document.getElementById('wWind');
-  if (windEl) windEl.textContent = Math.round(curr.wind.speed * 3.6) + ' km/h';
+  if (windEl) windEl.textContent = Math.round(c.windSpeed?.value ?? 0) + ' km/h';
   const visEl = document.getElementById('wVis');
-  if (visEl) visEl.textContent = (curr.visibility/1000).toFixed(1) + ' km';
+  if (visEl) visEl.textContent = ((c.visibility?.value ?? 0)/1000).toFixed(1) + ' km';
   
   const strip = document.getElementById('forecastStrip');
-  if (strip) {
+  if (strip && fore && fore.hourlyForecasts) {
     strip.innerHTML = '';
-    fore.list.slice(0,4).forEach(f => {
-      const time = new Date(f.dt*1000);
+    fore.hourlyForecasts.slice(0,4).forEach(f => {
+      const time = new Date(f.startTime);
       const hh = time.getHours(), ap = hh>=12?'PM':'AM';
       strip.innerHTML += `<div class="forecast-item">
         <div class="forecast-time">${(hh%12||12)}${ap}</div>
-        <div class="forecast-icon">${getWeatherIcon(f.weather[0].icon)}</div>
-        <div class="forecast-temp">${Math.round(f.main.temp)}°</div>
+        <div class="forecast-icon">${getWeatherIcon(f.condition?.text)}</div>
+        <div class="forecast-temp">${Math.round(f.temperature?.value ?? 0)}°</div>
       </div>`;
     });
   }
@@ -392,7 +396,7 @@ async function loadNews(cat) {
     list.innerHTML = '<div style="color:var(--text-mute);font-size:.8rem;text-align:center;padding:20px">Loading...</div>';
   }
 
-  if (CONFIG.NEWS_KEY === 'PASTE_YOUR_NEWSAPI_KEY') {
+  if (!CONFIG.NEWS_KEY || CONFIG.NEWS_KEY === 'PASTE_YOUR_NEWSAPI_KEY') {
     const demos = {
       technology: [
         { title:'OpenAI announces next-gen reasoning model with multi-modal capabilities', source:{name:'TechCrunch'}, url:'https://techcrunch.com/2024/05/13/openai-announces-gpt-4o-its-newest-flagship-ai-model/', publishedAt: new Date().toISOString() },
@@ -422,8 +426,14 @@ async function loadNews(cat) {
   }
 
   try {
-    const r = await fetch(`https://newsapi.org/v2/top-headlines?category=${cat}&pageSize=5&apiKey=${CONFIG.NEWS_KEY}`).then(r=>r.json());
-    newsCache[cat] = r.articles || [];
+    const r = await fetch(`https://newsdata.io/api/1/news?apikey=${CONFIG.NEWS_KEY}&category=${cat}&language=en&size=5`).then(r=>r.json());
+    const articles = (r.results || []).map(a => ({
+      title: a.title,
+      source: { name: a.source_id || a.source_name || 'News' },
+      url: a.link,
+      publishedAt: a.pubDate || new Date().toISOString()
+    }));
+    newsCache[cat] = articles;
     cacheSet(lsKey, newsCache[cat]);
     renderNews(newsCache[cat]);
   } catch(e) {
